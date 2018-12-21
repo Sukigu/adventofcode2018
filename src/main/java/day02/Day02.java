@@ -3,12 +3,36 @@ package day02;
 import common.InputReader;
 
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class PartTwo {
+public class Day02 {
 	public static void main(final String[] args) throws FileNotFoundException {
+		System.out.println("[Day 2]");
+		part1();
+		part2();
+	}
+	
+	private static void part1() throws FileNotFoundException {
+		final Stream<String> input = InputReader.readInput("day02.txt");
+		final ChecksumBuilder chksumBuilder = new ChecksumBuilder();
+		input.forEach(id -> {
+			final Map<Integer, Long> m = id.chars().boxed().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+			if (m.containsValue(2L)) {
+				chksumBuilder.incOccurrencesOfTwo();
+			}
+			if (m.containsValue(3L)) {
+				chksumBuilder.incOccurrencesOfThree();
+			}
+		});
+		System.out.println("The computed checksum is: " + chksumBuilder.calcChecksum());
+	}
+	
+	private static void part2() throws FileNotFoundException {
 		final Stream<String> input = InputReader.readInput("day02.txt");
 		final List<String> inputList = input.collect(Collectors.toUnmodifiableList());
 		

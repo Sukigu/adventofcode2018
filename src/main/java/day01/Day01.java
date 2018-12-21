@@ -9,8 +9,20 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class PartTwo {
+public class Day01 {
 	public static void main(final String[] args) throws FileNotFoundException {
+		System.out.println("[Day 1]");
+		part1();
+		part2();
+	}
+	
+	private static void part1() throws FileNotFoundException {
+		final Stream<String> input = InputReader.readInput("day01.txt");
+		final int resultingFrequency = input.mapToInt(Integer::parseInt).sum();
+		System.out.println("Part 1 > The resulting frequency is: " + resultingFrequency);
+	}
+	
+	private static void part2() throws FileNotFoundException {
 		final Stream<String> input = InputReader.readInput("day01.txt");
 		
 		// Get the frequency changes into a list of integers
@@ -34,6 +46,6 @@ public class PartTwo {
 			}
 		} while (!reachedTwice);
 		
-		System.out.println("The first frequency reached twice is: " + currentFreq);
+		System.out.println("Part 2 > The first frequency reached twice is: " + currentFreq);
 	}
 }
