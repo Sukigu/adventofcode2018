@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 public class PartOne {
 	public static void main(final String[] args) throws FileNotFoundException {
-		final Stream<String> input = InputReader.readInput("day02");
+		final Stream<String> input = InputReader.readInput("day02.txt");
 		final ChecksumBuilder chksumBuilder = new ChecksumBuilder();
 		input.forEach(id -> {
 			final Map<Integer, Long> m = id.chars().boxed().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));

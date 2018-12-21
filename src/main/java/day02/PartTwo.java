@@ -9,36 +9,31 @@ import java.util.stream.Stream;
 
 public class PartTwo {
 	public static void main(final String[] args) throws FileNotFoundException {
-		final Stream<String> input = InputReader.readInput("day02");
+		final Stream<String> input = InputReader.readInput("day02.txt");
 		final List<String> inputList = input.collect(Collectors.toUnmodifiableList());
 		
 		/*
-		Create a list with combinations of all input strings, where for each string,
-		each character is ommitted one at a time. 'currentCombinations' holds all
-		such combinations for the current string, whereas those are then stored
-		in 'pastCombinations' in hash form to save space
+		Let's create many partial strings, each one omitting a character of each input
+		string. Get its hash, then see if we had already found it in a previous
+		input. If so, return. If no partial string of the current input matches,
+		add all hashes of the current input to the list and move on to the next input
 		 */
-		List<Integer> pastCombinations = new ArrayList<>();
-		for (int i = 0; i < inputList.size(); ++i) {
-			final List<String> currentCombinations = new ArrayList<>();
+		final List<Integer> pastCombinationHashes = new ArrayList<>();
+		for (final String id : inputList) {
+			final List<Integer> currentCombinationHashes = new ArrayList<>();
 			
-			final String id = inputList.get(i);
-			for (int j = 0; j + 1 < id.length(); ++j) {
-				final String partialString = id.substring(0, j) + id.substring(j + 1);
-				currentCombinations.add(partialString);
-			}
-			
-			if (i != 0) {
-				final String match = currentCombinations.stream().filter(s->pastCombinations.contains(s.hashCode())).findAny().orElse(null);
-				if (match != null) {
-					System.out.println("The letters in common between the correct box IDs are: '" + match + "'");
+			for (int i = 0; i + 1 < id.length(); ++i) {
+				final String partialString = id.substring(0, i) + id.substring(i + 1);
+				final int partialStringHash = partialString.hashCode();
+				
+				if (pastCombinationHashes.contains(partialStringHash)) {
+					System.out.println("The letters in common between the correct box IDs are: '" + partialString + "'");
 					return;
 				}
+				currentCombinationHashes.add(partialStringHash);
 			}
 			
-			for (final String combination : currentCombinations) {
-				pastCombinations.add(combination.hashCode());
-			}
+			pastCombinationHashes.addAll(currentCombinationHashes);
 		}
 	}
 }
