@@ -1,11 +1,11 @@
 package day03;
 
 class Claim {
-	private int id;
-	private int x;
-	private int y;
-	private int width;
-	private int height;
+	private final int id;
+	private final int x;
+	private final int y;
+	private final int width;
+	private final int height;
 	private boolean overlaps;
 	
 	Claim(final int id, final int x, final int y, final int width, final int height) {

@@ -23,14 +23,13 @@ public class Day03 {
 		
 		final List<Claim> claims = input.map(claimString -> {
 			final Matcher claimMatcher = claimPattern.matcher(claimString);
-			if (claimMatcher.find()) {
-				return new Claim(
-						Integer.parseInt(claimMatcher.group(1)),
-						Integer.parseInt(claimMatcher.group(2)),
-						Integer.parseInt(claimMatcher.group(3)),
-						Integer.parseInt(claimMatcher.group(4)),
-						Integer.parseInt(claimMatcher.group(5)));
-			} else throw new InputMismatchException();
+			if (!claimMatcher.find()) throw new InputMismatchException();
+			return new Claim(
+					Integer.parseInt(claimMatcher.group(1)),
+					Integer.parseInt(claimMatcher.group(2)),
+					Integer.parseInt(claimMatcher.group(3)),
+					Integer.parseInt(claimMatcher.group(4)),
+					Integer.parseInt(claimMatcher.group(5)));
 		}).collect(Collectors.toList());
 		
 		final Map<SquareInch, List<Claim>> fabric = new HashMap<>();

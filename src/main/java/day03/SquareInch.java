@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Objects;
 
 class SquareInch {
-	private int x;
-	private int y;
-	private List<Claim> claims;
+	private final int x;
+	private final int y;
+	private final List<Claim> claims;
 	
 	SquareInch(final int x, final int y) {
 		this.x = x;
